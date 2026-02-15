@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>時短コスパ戦略 | 探す時間を減らす。選ぶ手間をなくす。</title>
+  <meta name="description" content="家電・ガジェットを徹底比較。探す時間を減らし、選ぶ手間をなくし、自分の時間を効率的につくるための情報サイト。">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f8f9fc;
+      --navy: #0b1d3a;
+      --navy-light: #132d5e;
+      --navy-dark: #060f1f;
+      --gold: #c9a84c;
+      --gold-light: #e2c97e;
+      --gold-dark: #a88a32;
+      --text-primary: #1a1a2e;
+      --text-secondary: #555770;
+      --border: rgba(11, 29, 58, 0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      color: var(--text-primary);
+      background: var(--white);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== Header / Navigation ===== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(11, 29, 58, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+
+    .logo-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+
+    .logo-accent {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* Mobile menu toggle */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(160deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 2rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201, 168, 76, 0.12);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      border-radius: 100px;
+      padding: 0.5rem 1.25rem;
+      margin-bottom: 2rem;
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.9;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--navy-dark);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 1rem 2.5rem;
+      border-radius: 100px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 24px rgba(201, 168, 76, 0.25);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ===== Section Common ===== */
+    section {
+      padding: 6rem 2rem;
+    }
+
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 1rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .section-header p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ===== Features Grid ===== */
+    .features {
+      background: var(--off-white);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(11, 29, 58, 0.08);
+      border-color: rgba(201, 168, 76, 0.3);
+    }
+
+    .feature-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== Comparison Table ===== */
+    .comparison {
+      background: var(--white);
+    }
+
+    .comparison-table-wrapper {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(11, 29, 58, 0.04);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+
+    .comparison-table thead {
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    }
+
+    .comparison-table thead th {
+      padding: 1.25rem 1.5rem;
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-align: center;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .comparison-table thead th:first-child {
+      text-align: left;
+    }
+
+    .comparison-table thead th.recommended {
+      background: rgba(201, 168, 76, 0.15);
+      position: relative;
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--navy-dark);
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.2rem 0.8rem;
+      border-radius: 0 0 8px 8px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .comparison-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s ease;
+    }
+
+    .comparison-table tbody tr:hover {
+      background: rgba(11, 29, 58, 0.02);
+    }
+
+    .comparison-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .comparison-table td {
+      padding: 1.1rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .comparison-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .comparison-table td:first-child i {
+      color: var(--gold-dark);
+      flex-shrink: 0;
+    }
+
+    .comparison-table td.highlight-col {
+      background: rgba(201, 168, 76, 0.04);
+      font-weight: 600;
+    }
+
+    .check { color: #27ae60; }
+    .cross { color: #c0392b; opacity: 0.5; }
+
+    .price {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .price .yen { font-size: 0.85rem; font-weight: 600; }
+
+    .rating {
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    /* CTA row */
+    .comparison-table tfoot td {
+      padding: 1.5rem;
+      text-align: center;
+      background: var(--off-white);
+    }
+
+    .table-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.6rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .table-cta-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--navy-dark);
+      box-shadow: 0 4px 16px rgba(201, 168, 76, 0.2);
+    }
+
+    .table-cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(201, 168, 76, 0.35);
+    }
+
+    .table-cta-secondary {
+      background: transparent;
+      color: var(--navy);
+      border: 1.5px solid var(--border);
+    }
+
+    .table-cta-secondary:hover {
+      border-color: var(--navy);
+      transform: translateY(-2px);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: var(--navy-dark);
+      color: rgba(255, 255, 255, 0.5);
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .footer-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-logo .logo-accent { color: var(--gold); }
+
+    footer p {
+      font-size: 0.85rem;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .nav-links { display: none; }
+      .menu-toggle { display: block; }
+
+      section { padding: 4rem 1.25rem; }
+
+      .hero-content { padding: 1.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1.25rem; }
+
+      .comparison-table thead th,
+      .comparison-table td {
+        padding: 0.9rem 1rem;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header>
+    <nav>
+      <a href="#" class="logo">
+        <i data-lucide="zap" style="width:22px;height:22px;color:var(--gold)"></i>
+        <span class="logo-text">時短コスパ<span class="logo-accent">戦略</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">特長</a></li>
+        <li><a href="#comparison">比較表</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+      <button class="menu-toggle" aria-label="メニュー">
+        <i data-lucide="menu" style="width:24px;height:24px"></i>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i data-lucide="sparkles" style="width:16px;height:16px"></i>
+        SMART CHOICE, BETTER LIFE
+      </div>
+      <h1>
+        探す時間を<span class="highlight">ゼロ</span>に。<br>
+        最適な一台が、<span class="highlight">すぐ見つかる</span>。
+      </h1>
+      <p>
+        膨大なレビューを読み漁る必要はもうありません。<br>
+        厳選した製品を、わかりやすい比較で。あなたの時間を守ります。
+      </p>
+      <a href="#comparison" class="hero-cta">
+        比較表を見る
+        <i data-lucide="arrow-down" style="width:18px;height:18px"></i>
+      </a>
+    </div>
+    <div class="scroll-indicator">
+      <i data-lucide="chevrons-down" style="width:28px;height:28px"></i>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="features" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="target" style="width:14px;height:14px"></i>
+          WHY CHOOSE US
+        </div>
+        <h2>このサイトが選ばれる理由</h2>
+        <p>情報収集に費やす時間を最小化し、最良の選択を最速で。</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="clock" style="width:28px;height:28px"></i>
+          </div>
+          <h3>圧倒的な時短</h3>
+          <p>何十ものレビューサイトを巡る必要なし。要点を凝縮した比較で、判断に必要な情報だけをお届けします。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="scale" style="width:28px;height:28px"></i>
+          </div>
+          <h3>公平な比較基準</h3>
+          <p>スペック・価格・実用性を統一基準で評価。メーカーに偏らない中立的な視点で、正しい判断をサポートします。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="badge-check" style="width:28px;height:28px"></i>
+          </div>
+          <h3>厳選されたラインナップ</h3>
+          <p>本当に価値のある製品だけを掲載。「多すぎて選べない」を解消し、自信を持って選べる環境をつくります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Comparison Table ===== -->
+  <section class="comparison" id="comparison">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="bar-chart-3" style="width:14px;height:14px"></i>
+          PRODUCT COMPARISON
+        </div>
+        <h2>家電・ガジェット 徹底比較</h2>
+        <p>人気3モデルをスペック・価格・満足度で比較。あなたに最適な一台が見つかります。</p>
+      </div>
+
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th>製品 A<br><small style="opacity:0.7">スタンダード</small></th>
+              <th class="recommended">
+                <span class="recommended-badge">おすすめ</span>
+                製品 B<br><small style="opacity:0.7">ベストバイ</small>
+              </th>
+              <th>製品 C<br><small style="opacity:0.7">プレミアム</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><i data-lucide="tag" style="width:16px;height:16px"></i> 価格（税込）</td>
+              <td><span class="price"><span class="yen">¥</span>12,800</span></td>
+              <td class="highlight-col"><span class="price"><span class="yen">¥</span>19,800</span></td>
+              <td><span class="price"><span class="yen">¥</span>34,800</span></td>
+            </tr>
+            <tr>
+              <td><i data-lucide="star" style="width:16px;height:16px"></i> 総合評価</td>
+              <td><span class="rating">★ 3.8</span></td>
+              <td class="highlight-col"><span class="rating">★ 4.7</span></td>
+              <td><span class="rating">★ 4.3</span></td>
+            </tr>
+            <tr>
+              <td><i data-lucide="battery-charging" style="width:16px;height:16px"></i> バッテリー</td>
+              <td>約 6 時間</td>
+              <td class="highlight-col">約 12 時間</td>
+              <td>約 10 時間</td>
+            </tr>
+            <tr>
+              <td><i data-lucide="weight" style="width:16px;height:16px"></i> 重量</td>
+              <td>350 g</td>
+              <td class="highlight-col">280 g</td>
+              <td>420 g</td>
+            </tr>
+            <tr>
+              <td><i data-lucide="wifi" style="width:16px;height:16px"></i> Wi-Fi 6 対応</td>
+              <td><span class="cross">✕</span></td>
+              <td class="highlight-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td><i data-lucide="shield-check" style="width:16px;height:16px"></i> メーカー保証</td>
+              <td>1 年</td>
+              <td class="highlight-col">2 年</td>
+              <td>3 年</td>
+            </tr>
+            <tr>
+              <td><i data-lucide="truck" style="width:16px;height:16px"></i> 送料無料</td>
+              <td><span class="cross">✕</span></td>
+              <td class="highlight-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td><i data-lucide="trending-up" style="width:16px;height:16px"></i> コスパ指数</td>
+              <td><span class="rating">B</span></td>
+              <td class="highlight-col"><span class="rating" style="font-size:1.1rem">S</span></td>
+              <td><span class="rating">A</span></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td>
+                <a href="#" class="table-cta table-cta-secondary">詳細を見る <i data-lucide="external-link" style="width:14px;height:14px"></i></a>
+              </td>
+              <td>
+                <a href="#" class="table-cta table-cta-primary">詳細を見る <i data-lucide="external-link" style="width:14px;height:14px"></i></a>
+              </td>
+              <td>
+                <a href="#" class="table-cta table-cta-secondary">詳細を見る <i data-lucide="external-link" style="width:14px;height:14px"></i></a>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer id="contact">
+    <div class="footer-logo">時短コスパ<span class="logo-accent">戦略</span></div>
+    <p>&copy; 2026 時短コスパ戦略. All rights reserved.</p>
+  </footer>
+
+  <!-- Lucide Icons Init -->
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>
